@@ -17,7 +17,7 @@ Here are some ideas to get you started:
 - 🔭 I’m currently working on [Basecamp](https://github.com/AirFusion45/basecamp) & [The Unofficial Tabroom.com API](https://github.com/AirFusion45/tabroomAPI)
 - 🌱 I’m currently learning [Electron](https://www.electronjs.org/) & How to ship full stack applications
 - 💬 Ask me about anything! I will try my best to help :)
-- 📫 How to reach me: jfang.cv.ca.us@gmail.com or Discord: AirFusion#1706
+- 📫 How to reach me: jim@rocketscience.monster or Discord: AirFusion#1706 or open an issue in AirFusion45/AirFusion45
 
 
 [![AirFusion's github stats](https://github-readme-stats.vercel.app/api?username=airfusion45&count_private=true&show_icons=true&theme=radical)](https://github.com/anuraghazra/github-readme-stats)
