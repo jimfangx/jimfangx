@@ -14,8 +14,8 @@ Here are some ideas to get you started:
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
-- 🔭 I’m currently working on [Basecamp](https://github.com/AirFusion45/basecamp) & [The Unofficial Tabroom.com API](https://github.com/AirFusion45/tabroomAPI)
-- 🌱 I’m currently learning [Electron](https://www.electronjs.org/) & How to ship full stack applications
+- 🔭 I’m currently working on [db8bot](https://github.com/AirFusion45/db8bot) & [The Unofficial Tabroom.com API](https://github.com/AirFusion45/tabroomAPI)
+- 🌱 I’m currently learning Software, Services & Systems architecture
 - 💬 Ask me about anything! I will try my best to help :)
 - 📫 How to reach me: jim@rocketscience.monster or Discord: AirFusion#1706 or open an issue in AirFusion45/AirFusion45
 
