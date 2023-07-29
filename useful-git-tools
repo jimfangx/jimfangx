@@ -1,1 +1,2 @@
 1. https://rtyley.github.io/bfg-repo-cleaner/ - cleaning files from commit histories (cough you leaked your token)
+2. https://web.archive.org/web/20230729211251/https://stephenreescarter.net/signing-git-commits-with-a-keybase-gpg-key/ - pulling GPG key from Keybase and adding to local GPG for GitKraken
