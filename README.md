@@ -14,10 +14,10 @@ Here are some ideas to get you started:
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
-- 🔭 I’m currently working on [db8bot](https://github.com/AirFusion45/db8bot) & [The Unofficial Tabroom.com API](https://github.com/AirFusion45/tabroomAPI)
+<!-- - 🔭 I’m currently working on [db8bot](https://github.com/AirFusion45/db8bot) & [The Unofficial Tabroom.com API](https://github.com/AirFusion45/tabroomAPI)
 - 🌱 I’m currently learning Software, Services & Systems architecture
 - 💬 Ask me about anything! I will try my best to help :)
-- 📫 How to reach me: jim@airfusion.dev or Discord: AirFusion#5112 or open an issue in AirFusion45/AirFusion45
+- 📫 How to reach me: jim@airfusion.dev or Discord: AirFusion#5112 or open an issue in AirFusion45/AirFusion45 -->
 
 
 ![Metrics](/github-metrics.svg)
