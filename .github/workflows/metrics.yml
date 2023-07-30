@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: lowlighter/metrics@master
         with:
-          base: repositories
+          base: ""
           token: ${{ secrets.METRICS_TOKEN }}
           config_timezone: America/Los_Angeles
           plugin_lines: yes
@@ -21,8 +21,7 @@ jobs:
           plugin_languages_limit: 20
           plugin_languages_sections: recently-used
           plugin_languages_details: bytes-size, percentage
-          plugin_languages_ignored: >-
-            roff, dockerfile, html, css, makefile, qmake, cmake
+          plugin_languages_ignored: roff, dockerfile, html, css, makefile, qmake, cmake
           plugin_languages_threshold: 0%
           plugin_notable: yes
           plugin_isocalendar: yes
