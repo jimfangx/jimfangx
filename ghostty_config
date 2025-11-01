@@ -87,3 +87,5 @@ background-opacity = 0.65
 background-blur = true
 unfocused-split-opacity = 0.5
 macos-icon = holographic
+# bind alt+tab to ctrl + 2 to make zsh autosuggestions accept suggestion via option + tab 
+keybind = all:alt+tab=text:\x00

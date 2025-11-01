@@ -82,9 +82,12 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-autocomplete)
+# plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-autocomplete)
+# plugins=(git zsh-autosuggestions zsh-syntax-highlighting H-S-MW)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
+source <(fzf --zsh)
 
 # User configuration
 
@@ -99,6 +102,34 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
+
+# zsh-autosuggestions bind autocomplete to ctrl + 2
+bindkey '^@' autosuggest-accept
+# don't break autosuggestions 
+bindkey '^I' expand-or-complete
+
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+
+# Define fzf-powered history search
+fzf-history-widget() {
+  # show commands from history, unique, newest first
+  local selected
+  selected=$(fc -rl 1 | awk '{$1=""; print substr($0,2)}' | awk '!seen[$0]++' | \
+             fzf --height=40% --border --ansi --prompt='History> ')
+  if [[ -n $selected ]]; then
+    LBUFFER=$selected
+  fi
+  zle redisplay
+}
+zle -N fzf-history-widget
+
+# Bind Up arrow to trigger fzf-history-widget
+bindkey -r '^[OA'
+bindkey '^[OA' fzf-history-widget
+
+# (Optional) keep Down arrow as-is or give it similar treatment
+# bindkey '^[[B' fzf-history-widget
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -117,6 +148,10 @@ alias tldr="/Users/jimfang/tldr"
 alias code="code-insiders"
 alias vim="nvim"
 alias vi="nvim"
+alias cat="bat"
+alias catc="bat -p --paging=never"
+alias ccat="bat -p --paging=never"
+alias catt="/opt/homebrew/opt/coreutils/libexec/gnubin/cat"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -164,9 +199,14 @@ unset __mamba_setup
 export PATH="/opt/homebrew/opt/m4/bin:$PATH"
 # alias gm4="$(which m4)"
 export PATH="/opt/homebrew/opt/bison/bin:$PATH"
-alias make="$(which gmake)"
+# export PATH="/opt/homebrew/bin/gmake:$PATH"
+# alias make="$(which gmake)"
+# alias gnumake="$(which gmake)"
 # export RISCV="/opt/homebrew/bin"
-export RISCV="/opt/homebrew/Cellar/riscv-gnu-toolchain/main"
+# export RISCV="/opt/homebrew/Cellar/riscv-gnu-toolchain/main"
 export YACC="$(which bison)"
+export PATH="$(brew --prefix)/opt/make/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
+alias gcc="/opt/homebrew/Cellar/gcc/15.2.0/bin/gcc-15"
+alias gmp="/opt/homebrew/Cellar/gmp/6.3.0/include/"
