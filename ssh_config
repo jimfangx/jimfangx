@@ -1,0 +1,97 @@
+# Last Updated: Nov 28 2025, includes redactions
+Include ~/.orbstack/ssh/config
+
+Host 152
+	HostName eda-2.eecs.berkeley.edu
+	User cs152-aak-sp25
+	ForwardAgent yes
+	ProxyJump %r@instgw.eecs.berkeley.edu
+	ServerAliveInterval 60
+	SetEnv TERM=xterm-256color
+Host 151t
+	HostName eda-2.eecs.berkeley.edu
+	User ee198-20-aaf-sp25
+	ForwardAgent yes
+	ProxyJump %r@instgw.eecs.berkeley.edu
+	ServerAliveInterval 60
+  SetEnv TERM=xterm-256color
+Host 151t-staff
+  HostName eda-2.eecs.berkeley.edu
+  User ee198-20
+  ProxyJump %r@instgw.eecs.berkeley.edu
+  ServerAliveInterval 66
+  SetEnv TERM=xterm-256color
+Host hive? hive?? s330-? s330-??
+	HostName %h.cs.berkeley.edu
+	User cs61c-tah
+	IdentityFile ~/.ssh/61c-ed25519
+#	ProxyJump %r@instgw.eecs.berkeley.edu
+	ServerAliveInterval 60
+	SetEnv TERM=xterm-256color
+Host fenghuang
+	HostName fenghuang.eecs.berkeley.edu
+	User jimfang
+	ServerAliveInterval 60
+	SetEnv TERM=xterm-256color
+Host qilin
+	HostName qilin.eecs.berkeley.edu
+	User jimfang
+	ServerAliveInterval 60
+	SetEnv TERM=xterm-256color
+Match Host *.cs,*.eecs
+	HostName %h.berkeley.edu
+	Port 22
+	User cs199-abs
+	ProxyJump %r@instgw.eecs.berkeley.edu
+	ServerAliveInterval 60
+	SetEnv TERM=xterm-256color
+Host 
+  HostName 
+  Port 22
+	User ec2-user
+	IdentityFile ~/.ssh/firesim
+	SetEnv TERM=xterm-256color
+Host 61c-aws
+    HostName 
+	  Port 22
+    User cs61c
+    ServerAliveInterval 60
+    SetEnv TERM=xterm-256color
+Host 61c-staff
+    HostName hive20.cs.berkeley.edu
+    Port 22
+    User cs61c
+    ProxyJump %r@instgw.eecs.berkeley.edu
+    ServerAliveInterval 66
+    SetEnv TERM=xterm-256color
+Host firesim
+    HostName 
+    Port 22
+    User ubuntu
+    ServerAliveInterval 60
+    IdentityFile ~/.ssh/firesim.pem
+Host bwrcix-?
+  HostName %h.eecs.berkeley.edu
+  ProxyJump cs199-abs@cory.eecs,%r@bwrcrdsl-1.eecs.berkeley.edu
+  Port 22
+  User yf328
+  ServerAliveInterval 60
+  SetEnv TERM=xterm-256color
+Host bwrcrdsl-?
+  HostName %h.eecs.berkeley.edu
+  Port 22
+  User yf328
+  ServerAliveInterval 60
+  ProxyJump cs199-abs@cory.eecs
+  SetEnv TERM=xterm-256color
+Host hummingbird
+  # only on Wireguard MBP-Appt 
+  HostName hummingbird.eecs.berkeley.edu
+  Port 22
+  User jimfang
+  ServerAliveInterval 60
+Host *
+	ServerAliveInterval 60
+	SetEnv TERM=xterm-256color
+
+IdentityAgent /run/user/1000/gnupg/S.gpg-agent.ssh
