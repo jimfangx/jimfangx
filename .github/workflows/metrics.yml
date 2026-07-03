@@ -15,12 +15,14 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           config_timezone: America/Los_Angeles
           repositories_affiliations: owner
+          repositories: 300
           extras_css: |
             .organization.contributions .contribution.organization:nth-of-type(n+6) {
               display: none;
             }
           plugin_lines: yes
           plugin_lines_history_limit: 1
+          plugin_lines_delay: 30
           plugin_languages: yes
           plugin_languages_colors: github
           plugin_languages_limit: 20
