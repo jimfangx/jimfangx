@@ -14,7 +14,11 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           config_timezone: America/Los_Angeles
-          repositories_affiliations: owner, collaborator, organization_member
+          repositories_affiliations: owner
+          extras_css: |
+            .organization.contributions .contribution.organization:nth-of-type(n+6) {
+              display: none;
+            }
           plugin_lines: yes
           plugin_lines_history_limit: 1
           plugin_languages: yes
@@ -25,11 +29,13 @@ jobs:
           plugin_languages_ignored: roff, dockerfile, html, css, makefile, qmake, cmake
           plugin_languages_threshold: 0%
           plugin_notable: yes
+          plugin_notable_repositories: yes
           plugin_followup: yes
-          plugin_followup_sections: user, repositories
+          plugin_followup_sections: user
           plugin_isocalendar: yes
           plugin_isocalendar_duration: full-year
           plugin_activity: yes
           plugin_activity_limit: 5
           plugin_activity_days: 30
+          plugin_activity_visibility: public
           plugin_activity_filter: push, issue, pr, release, review, ref/create
