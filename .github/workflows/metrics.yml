@@ -29,13 +29,7 @@ jobs:
           plugin_languages_ignored: roff, dockerfile, html, css, makefile, qmake, cmake
           plugin_languages_threshold: 0%
           plugin_notable: yes
-          plugin_notable_repositories: yes
           plugin_followup: yes
           plugin_followup_sections: user
           plugin_isocalendar: yes
           plugin_isocalendar_duration: full-year
-          plugin_activity: yes
-          plugin_activity_limit: 5
-          plugin_activity_days: 30
-          plugin_activity_visibility: public
-          plugin_activity_filter: push, issue, pr, release, review, ref/create
