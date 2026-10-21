@@ -19,7 +19,10 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
   fi
   SUDO="sudo"
-  sudo -v  # ask for the password once, up front
+  # Ask for the password once, up front, unless sudo doesn't need one. Not just `sudo -v`:
+  # it asks for a password unless ALL matching sudoers rules are NOPASSWD (e.g. on AWS,
+  # "ubuntu ALL=(ALL) NOPASSWD:ALL" plus "%sudo ALL=(ALL:ALL) ALL")
+  sudo -n true 2>/dev/null || sudo -v
 fi
 
 # ===  Packages  ===

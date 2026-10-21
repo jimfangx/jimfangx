@@ -49,8 +49,10 @@ case "$(uname -m)" in
   *) echo "ERROR: unsupported architecture $(uname -m)" >&2; exit 1 ;;
 esac
 
-# Ask for sudo password once, and keep sudo alive during long installs
-sudo -v
+# Ask for sudo password once, unless sudo doesn't need one, and keep sudo alive during
+# long installs. Not just `sudo -v`: it asks for a password unless ALL matching sudoers
+# rules are NOPASSWD (e.g. on AWS, "ubuntu ALL=(ALL) NOPASSWD:ALL" plus "%sudo ALL=(ALL:ALL) ALL")
+sudo -n true 2>/dev/null || sudo -v
 ( while kill -0 "$$" 2>/dev/null; do sudo -n true; sleep 60; done ) 2>/dev/null &
 SUDO_KEEPALIVE_PID=$!
 
