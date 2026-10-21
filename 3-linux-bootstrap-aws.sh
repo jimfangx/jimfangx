@@ -126,12 +126,42 @@ fi
 
 # ===  f) Ubuntu desktop  ===
 
-log "Ubuntu desktop"
-if is_installed ubuntu-desktop; then
-  skip "ubuntu-desktop"
+# Disabled. Note: the DCV session below starts GNOME (gnome-session), which comes with it
+# log "Ubuntu desktop"
+# if is_installed ubuntu-desktop; then
+#   skip "ubuntu-desktop"
+# else
+#   sudo apt-get update
+#   apt_install ubuntu-desktop
+# fi
+
+# ubuntu-desktop (via ubuntu-settings) installs /usr/lib/netplan/00-network-manager-all.yaml, which
+# hands all network cards to NetworkManager at boot. On EC2 that can leave the card without DNS.
+# Keep EC2's default (systemd-networkd), by shadowing that file. Takes effect on next reboot
+if [ -e /usr/lib/netplan/00-network-manager-all.yaml ]; then
+  log "Keep network card on systemd-networkd"
+  install_root_file /etc/netplan/00-network-manager-all.yaml 600 <<'EOF'
+# Overrides /usr/lib/netplan/00-network-manager-all.yaml (from ubuntu-desktop), which hands
+# all network cards to NetworkManager. Keep EC2's default, systemd-networkd
+network:
+  version: 2
+  renderer: networkd
+EOF
+  sudo netplan generate
+fi
+
+# Installing ubuntu-desktop moves the network card from systemd-networkd to NetworkManager,
+# which can leave it without DNS servers until a reboot. Set the VPC DNS server on it
+# (until reboot). 192.168.0.2 = DNS of VPC 192.168.0.0/16 (VPC base + 2); 169.254.169.253 works in any VPC
+VPC_DNS="192.168.0.2"
+log "DNS server $VPC_DNS"
+net_card="$(ip route show default | awk '{ print $5; exit }')"
+if [ -z "$net_card" ]; then
+  warn "No default route, not setting DNS"
+elif sudo resolvectl dns "$net_card" "$VPC_DNS" && sudo resolvectl default-route "$net_card" yes; then
+  echo "    set on $net_card"
 else
-  sudo apt-get update
-  apt_install ubuntu-desktop
+  warn "Cannot set DNS on $net_card"
 fi
 
 # ===  g-l) Amazon DCV remote desktop  ===
@@ -249,3 +279,12 @@ echo "    Log out and back in (or run: newgrp docker) to use docker without sudo
 echo "    DCV desktop: https://${public_ip:-<instance-public-ip>}:8443 (log in as $USER_NAME,"
 echo "    security group must allow TCP 8443). The 'desktop' session is recreated within a minute"
 echo "    after a reboot or logout (dcv-desktop-session.timer)"
+
+# Installing ubuntu-desktop moves the network card from systemd-networkd to NetworkManager.
+# Until a reboot, the card can end up with no DNS servers ("Temporary failure in name resolution")
+if ! getent hosts github.com >/dev/null 2>&1; then
+  warn "DNS lookups fail. Reboot to fix (sudo reboot). To fix until then:"
+  warn "  sudo resolvectl dns <card, e.g. ens5> 169.254.169.253 && sudo resolvectl default-route <card> yes"
+elif [ -f /var/run/reboot-required ]; then
+  warn "Reboot required to finish installs (sudo reboot), e.g. network handover to NetworkManager"
+fi
