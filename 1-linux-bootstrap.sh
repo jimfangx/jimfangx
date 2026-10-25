@@ -355,3 +355,29 @@ echo "    For p10k icons, use a Nerd Font in your terminal (e.g. MesloLGS NF)"
 echo
 echo "Public key ($SSH_KEY.pub):"
 cat "$SSH_KEY.pub"
+
+# External IPv4 address, as seen from the internet
+ssh_ip=""
+for url in https://api.ipify.org https://ipv4.icanhazip.com https://ifconfig.me/ip; do
+  ssh_ip="$(curl -4 -fsS --max-time 5 "$url" 2>/dev/null | tr -d '[:space:]' || true)"
+  [[ "$ssh_ip" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]] && break
+  ssh_ip=""
+done
+if [ -z "$ssh_ip" ]; then
+  warn "Cannot get external IPv4 address, using hostname in SSH config"
+  ssh_ip="$(uname -n)"
+fi
+# When run over ssh, SSH_CONNECTION is "client_ip client_port server_ip server_port"
+ssh_port="$(echo "${SSH_CONNECTION:-}" | awk '{print $4}')"
+
+echo
+echo "SSH config to add to ~/.ssh/config on your local machine (fill in the Host name):"
+echo
+cat <<EOF
+Host
+  HostName $ssh_ip
+  Port ${ssh_port:-22}
+  User $(id -un)
+  ServerAliveInterval 60
+  SetEnv TERM=xterm-256color
+EOF
