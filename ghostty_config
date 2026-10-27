@@ -51,8 +51,8 @@ clipboard-write = allow
 clipboard-read = allow
 copy-on-select = clipboard
 window-theme = system
-theme = catppuccin-macchiato
 bold-is-bright = true
+theme = Catppuccin Macchiato
 background = #24273a
 foreground = #cad3f5
 selection-background = #3a3e53
@@ -79,13 +79,21 @@ palette = 13=#f5bde6
 palette = 14=#8bd5ca
 palette = 15=#a5adcb
 font-family = MesloLGS NF
-macos-titlebar-style = tabs
+#macos-titlebar-style = tabs
 auto-update = check
 auto-update-channel = stable
-shell-integration-features = no-cursor, sudo
+shell-integration-features = no-cursor,sudo,title
 background-opacity = 0.65
 background-blur = true
 unfocused-split-opacity = 0.5
 macos-icon = holographic
 # bind alt+tab to ctrl + 2 to make zsh autosuggestions accept suggestion via option + tab 
-keybind = all:alt+tab=text:\x00
+keybind = all:alt+tab=text:\x00 
+keybind = super+v=paste_from_clipboard
+# Treat the left Option key as Alt/Meta (needed for the tmux Option+d / Option+w / Option+Shift+Arrow bindings).
+# Right Option still types special characters (∂, ∑, …). Use `true` to make both Alt.
+macos-option-as-alt = left
+keybind = super+shift+up=goto_split:up
+keybind = super+shift+down=goto_split:down
+keybind = super+shift+left=goto_split:left
+keybind = super+shift+right=goto_split:right
