@@ -336,7 +336,7 @@ else
   bash "$HOME/tmux-config/install.sh"
 fi
 
-# ===  Codex, Claude Code  ===
+# ===  Codex, Claude Code, opencode  ===
 
 log "Codex"
 if [ -x "$HOME/.local/bin/codex" ]; then
@@ -351,6 +351,13 @@ if [ -x "$HOME/.local/bin/claude" ]; then
   skip "$HOME/.local/bin/claude (updates itself)"
 else
   curl -fsSL https://claude.ai/install.sh | bash
+fi
+
+log "opencode"
+if command -v opencode >/dev/null 2>&1 || [ -x "$HOME/.opencode/bin/opencode" ]; then
+  skip "opencode"
+else
+  curl -fsSL https://opencode.ai/v2/install | bash
 fi
 
 # ===  Default shell  ===
